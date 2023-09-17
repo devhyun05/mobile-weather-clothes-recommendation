@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native'; 
-import Video from 'react-native-video'; 
-import SkyVideo from './clear-sky.mp4';
+import { Video, ResizeMode } from 'expo-av';
 import React from 'react';
 import * as Location from 'expo-location';
 
@@ -9,11 +8,8 @@ const Home = () => {
     let [loading, setLoading] = useState(true); 
     const [city, setCity] = useState(""); 
     const [weatherData, setWeatherData] = useState(); 
-    const video = React.useRef(null); 
-    const secondVideo = React.useRef(null); 
-    const [status, setStatus] = React.useState({});
-    const [statusSecondVideo, setStatusSecondVideo] = React.useState({});
-    
+  
+
     useEffect(() => {
         getCityLocation(); 
         if (!loading) {
@@ -84,9 +80,14 @@ const Home = () => {
             <View>
                 {weatherData && (
                     <View>
-                        <Video 
-                            source={SkyVideo} 
-                        />
+                              <Video
+                           
+                                style={styles.video}
+                                source={{
+                                uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+                                }}
+               
+                            />
                         <Image 
                         source={{ uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`,}}
                         style={{height: 80, width: 80}}
@@ -107,18 +108,16 @@ const Home = () => {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
+        height: '100%',
+        width: '100%',
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center', 
+
     },
-    backgroundVideo: {
+    video: {
         position: 'absolute', 
-        zIndex: 0,
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: '-1',
     }
 })
 
