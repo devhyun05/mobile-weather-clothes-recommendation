@@ -80,7 +80,8 @@ const Home = () => {
                 {weatherData && (
                     <View>
                         <Image 
-                        source={{ uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png` }}
+                        source={{ uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`,}}
+                        onError={(error) => console.error(error)}
                         />
                         <Text>{weatherData.name}, {weatherData.sys.country}</Text>
                         <Text>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</Text>
